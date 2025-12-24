@@ -1,9 +1,11 @@
 function shtw(graph, startVertex) {
   const distances = {};
   const visited = new Set();
+  const prev = {};
 
   for (const vertex in graph) {
     distances[vertex] = Infinity;
+    prev[vertex] = null;
   }
 
   distances[startVertex] = 0;
@@ -28,11 +30,12 @@ function shtw(graph, startVertex) {
 
       if (newWeight < distances[neighbor]) {
         distances[neighbor] = newWeight;
+        prev[neighbor] = closestVertex;
       }
     }
   }
 
-  return distances;
+  return { distances, prev };
 }
 
 const graph = {
@@ -45,4 +48,4 @@ const graph = {
   g: {},
 };
 
-console.log(shtw(graph, "c"));
+console.log(shtw(graph, "a"));
